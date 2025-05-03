@@ -1,1 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentación: Análisis de Productividad Q1 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+      color: #333;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .slide {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .slide.active {
+      display: block;
+    }
+    .header {
+      background-color: #CC2F38;
+      color: white;
+      padding: 10px 20px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+    .header .logo img {
+      height: 36px;
+    }
+    .header .title {
+      font-size: 1.8em;
+      margin: 0;
+    }
+    h2 {
+      color: #333;
+      font-size: 1.8em;
+      border-bottom: 2px solid #1a73e8;
+      padding-bottom: 5px;
+      margin-top: 60px;
+      margin-bottom: 15px;
+    }
+    p, li {
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin: 5px 0;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      padding: 8px 0;
+      position: relative;
+      padding-left: 25px;
+    }
+    li:before {
+      content: "✔";
+      color: #34c759;
+      position: absolute;
+      left: 0;
+      font-size: 1.2em;
+    }
+    .highlight {
+      color: #CC2F38;
+      font-weight: bold;
+    }
+    .data-box {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      border-left: 4px solid #1a73e8;
+    }
+    .chart-container {
+      position: relative;
+      margin: 20px 0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .matrix-container {
+      margin: 20px 0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .matrix-table th, .matrix-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .matrix-table th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+    }
+    .matrix-table th:first-child {
+      width: 150px;
+    }
+    .matrix-table td {
+      color: #000;
+    }
+    .matrix-table .label-column {
+      font-weight: bold;
+      text-align: left;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 30px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #1a73e8;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #1557b0;
+    }
+    .navigation {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .nav-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .nav-button:hover:not(:disabled) {
+      background-color: #1557b0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Slide 1: Título y Contexto -->
+    <div class="slide active">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Análisis de Productividad Q1 2025</div>
+      </div>
+      <div style="padding-top: 70px;">
+        <p>Presentación para la Fuerza de Ventas</p>
+        <p>Fecha: 04:12 AM - 03/05/2025</p>
+        <p>Revisión de resultados globales y mes a mes para definir estrategias de mejora.</p>
+      </div>
+    </div>
 
+    <!-- Slide 2: Resultados Globales -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Resultados Globales</div>
+      </div>
+      <div class="data-box">
+        <p><strong>Ejecutivos inactivos:</strong> 81 de 1181 (6.86%)</p>
+        <p><strong>Cumplimiento (activos, n=1100):</strong></p>
+        <p>- Tarjetas: Media 115.73%, Mediana 106.06%</p>
+        <p>- Seguros: Media 74.86%, Mediana 78.39%</p>
+        <p>- Créditos: Media 120.12%, Mediana 100.97%</p>
+        <p><strong>Ventas:</strong> Tarjetas (Media 24.68), Seguros (Media 23.69), Créditos (Media 10.56)</p>
+      </div>
+      <ul>
+        <li>COSTAS lidera en seguros (84.60%) y SANTANDERES BOYACA en tarjetas (118.68%).</li>
+        <li>BOGOTA CENTRO rezagada: seguros (55.89%), créditos (98.81%).</li>
+        <li>Ejecutivos nuevos (<6 meses) tienen bajo desempeño: tarjetas (71.48%), seguros (28.61%).</li>
+      </ul>
+    </div>
+
+    <!-- Slide 3: Resultados Mes a Mes -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Resultados Mes a Mes</div>
+      </div>
+      <div class="data-box">
+        <p><strong>Enero (n=330):</strong> Tarjetas 118.44%, Seguros 75.62%, Créditos 221.40%</p>
+        <p><strong>Febrero (n=382):</strong> Tarjetas 108.48%, Seguros 85.40%, Créditos 85.84%</p>
+        <p><strong>Marzo (n=388):</strong> Tarjetas 120.40%, Seguros 64.17%, Créditos 80.14%</p>
+      </div>
+      <div class="chart-container">
+        <canvas id="complianceChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Slide 4: Matrices por Región y Antigüedad -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Matrices de Cumplimiento Global</div>
+      </div>
+      <div class="matrix-container">
+        <h2>Promedio de Cumplimiento por Región y Antigüedad (Tarjetas)</h2>
+        <table class="matrix-table">
+          <tr>
+            <th></th>
+            <th><6 meses</th>
+            <th>6 - 12 meses</th>
+            <th>1-5 años</th>
+            <th>> 5 años</th>
+          </tr>
+          <tr>
+            <td class="label-column">ANTIOQUIA</td>
+            <td style="background-color: rgba(242, 73, 0, 0.7);">68%</td>
+            <td style="background-color: rgba(194, 121, 0, 0.7);">104%</td>
+            <td style="background-color: rgba(179, 136, 0, 0.7);">113%</td>
+            <td style="background-color: rgba(0, 255, 0, 0.7);">163%</td>
+          </tr>
+          <tr>
+            <td class="label-column">BOGOTA CENTRO</td>
+            <td style="background-color: rgba(241, 74, 0, 0.7);">69%</td>
+            <td style="background-color: rgba(141, 174, 0, 0.7);">126%</td>
+            <td style="background-color: rgba(192, 123, 0, 0.7);">105%</td>
+            <td style="background-color: rgba(60, 195, 0, 0.7);">149%</td>
+          </tr>
+          <tr>
+            <td class="label-column">BOGOTA Y CERCANIAS</td>
+            <td style="background-color: rgba(239, 76, 0, 0.7);">71%</td>
+            <td style="background-color: rgba(159, 156, 0, 0.7);">119%</td>
+            <td style="background-color: rgba(216, 99, 0, 0.7);">88%</td>
+            <td style="background-color: rgba(90, 165, 0, 0.7);">141%</td>
+          </tr>
+          <tr>
+            <td class="label-column">COSTAS</td>
+            <td style="background-color: rgba(228, 87, 0, 0.7);">83%</td>
+            <td style="background-color: rgba(179, 136, 0, 0.7);">113%</td>
+            <td style="background-color: rgba(187, 128, 0, 0.7);">109%</td>
+            <td style="background-color: rgba(120, 135, 0, 0.7);">130%</td>
+          </tr>
+          <tr>
+            <td class="label-column">SANTANDERES BOYACA</td>
+            <td style="background-color: rgba(223, 92, 0, 0.7);">86%</td>
+            <td style="background-color: rgba(223, 92, 0, 0.7);">86%</td>
+            <td style="background-color: rgba(216, 99, 0, 0.7);">88%</td>
+            <td style="background-color: rgba(12, 243, 0, 0.7);">159%</td>
+          </tr>
+        </table>
+      </div>
+      <div class="matrix-container">
+        <h2>Promedio de Cumplimiento por Región y Antigüedad (Seguros)</h2>
+        <table class="matrix-table">
+          <tr>
+            <th></th>
+            <th><6 meses</th>
+            <th>6 - 12 meses</th>
+            <th>1-5 años</th>
+            <th>> 5 años</th>
+          </tr>
+          <tr>
+            <td class="label-column">ANTIOQUIA</td>
+            <td style="background-color: rgba(238, 77, 0, 0.7);">33%</td>
+            <td style="background-color: rgba(154, 161, 0, 0.7);">91%</td>
+            <td style="background-color: rgba(146, 169, 0, 0.7);">95%</td>
+            <td style="background-color: rgba(151, 164, 0, 0.7);">92%</td>
+          </tr>
+          <tr>
+            <td class="label-column">BOGOTA CENTRO</td>
+            <td style="background-color: rgba(255, 60, 0, 0.7);">18%</td>
+            <td style="background-color: rgba(202, 113, 0, 0.7);">58%</td>
+            <td style="background-color: rgba(151, 164, 0, 0.7);">92%</td>
+            <td style="background-color: rgba(169, 146, 0, 0.7);">82%</td>
+          </tr>
+          <tr>
+            <td class="label-column">BOGOTA Y CERCANIAS</td>
+            <td style="background-color: rgba(250, 65, 0, 0.7);">24%</td>
+            <td style="background-color: rgba(184, 131, 0, 0.7);">72%</td>
+            <td style="background-color: rgba(149, 166, 0, 0.7);">93%</td>
+            <td style="background-color: rgba(157, 158, 0, 0.7);">89%</td>
+          </tr>
+          <tr>
+            <td class="label-column">COSTAS</td>
+            <td style="background-color: rgba(234, 81, 0, 0.7);">37%</td>
+            <td style="background-color: rgba(146, 169, 0, 0.7);">95%</td>
+            <td style="background-color: rgba(141, 174, 0, 0.7);">98%</td>
+            <td style="background-color: rgba(143, 172, 0, 0.7);">96%</td>
+          </tr>
+          <tr>
+            <td class="label-column">SANTANDERES BOYACA</td>
+            <td style="background-color: rgba(236, 79, 0, 0.7);">35%</td>
+            <td style="background-color: rgba(169, 146, 0, 0.7);">82%</td>
+            <td style="background-color: rgba(0, 255, 0, 0.7);">102%</td>
+            <td style="background-color: rgba(151, 164, 0, 0.7);">92%</td>
+          </tr>
+        </table>
+      </div>
+      <div class="matrix-container">
+        <h2>Promedio de Cumplimiento por Región y Antigüedad (Créditos)</h2>
+        <table class="matrix-table">
+          <tr>
+            <th></th>
+            <th><6 meses</th>
+            <th>6 - 12 meses</th>
+            <th>1-5 años</th>
+            <th>> 5 años</th>
+          </tr>
+          <tr>
+            <td class="label-column">ANTIOQUIA</td>
+            <td style="background-color: rgba(202, 113, 0, 0.7);">72%</td>
+            <td style="background-color: rgba(27, 228, 0, 0.7);">166%</td>
+            <td style="background-color: rgba(51, 204, 0, 0.7);">155%</td>
+            <td style="background-color: rgba(33, 222, 0, 0.7);">162%</td>
+          </tr>
+          <tr>
+            <td class="label-column">BOGOTA CENTRO</td>
+            <td style="background-color: rgba(216, 99, 0, 0.7);">60%</td>
+            <td style="background-color: rgba(84, 171, 0, 0.7);">140%</td>
+            <td style="background-color: rgba(111, 144, 0, 0.7);">126%</td>
+            <td style="background-color: rgba(105, 150, 0, 0.7);">129%</td>
+          </tr>
+          <tr>
+            <td class="label-column">BOGOTA Y CERCANIAS</td>
+            <td style="background-color: rgba(255, 60, 0, 0.7);">33%</td>
+            <td style="background-color: rgba(99, 156, 0, 0.7);">131%</td>
+            <td style="background-color: rgba(0, 255, 0, 0.7);">181%</td>
+            <td style="background-color: rgba(63, 192, 0, 0.7);">148%</td>
+          </tr>
+          <tr>
+            <td class="label-column">COSTAS</td>
+            <td style="background-color: rgba(214, 101, 0, 0.7);">61%</td>
+            <td style="background-color: rgba(90, 165, 0, 0.7);">137%</td>
+            <td style="background-color: rgba(120, 135, 0, 0.7);">122%</td>
+            <td style="background-color: rgba(138, 117, 0, 0.7);">105%</td>
+          </tr>
+          <tr>
+            <td class="label-column">SANTANDERES BOYACA</td>
+            <td style="background-color: rgba(228, 87, 0, 0.7);">48%</td>
+            <td style="background-color: rgba(141, 114, 0, 0.7);">106%</td>
+            <td style="background-color: rgba(84, 171, 0, 0.7);">140%</td>
+            <td style="background-color: rgba(96, 159, 0, 0.7);">132%</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Slide 5: Top y Bottom Performers -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Top y Bottom Performers</div>
+      </div>
+      <div class="chart-container">
+        <canvas id="topPerformersChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="bottomPerformersChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Slide 6: Conclusiones -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Conclusiones Clave</div>
+      </div>
+      <ul>
+        <li><span class="highlight">Tarjetas:</span> Crecimiento constante (120.40% en marzo), superando el global (115.73%).</li>
+        <li><span class="highlight">Seguros:</span> Pico en febrero (85.40%), pero caída a 64.17% en marzo, por debajo del global (74.86%).</li>
+        <li><span class="highlight">Créditos:</span> Alta en enero (221.40%), estabilización baja en marzo (80.14%), lejos del global (120.12%).</li>
+        <li>COSTAS lidera en seguros (77.48%) y tarjetas (124.78%), mientras BOGOTA CENTRO sigue rezagada (seguros: 44.61%).</li>
+        <li>Ejecutivos nuevos mejoran en tarjetas (84.79%) pero retroceden en seguros (25.59%).</li>
+      </ul>
+    </div>
+
+    <!-- Slide 7: Campaña Propuesta -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Campaña: Impulso Éxito 2025</div>
+      </div>
+      <div style="padding-top: 70px; min-height: 350px;">
+        <p><strong>Objetivo:</strong> Incrementar productividad en seguros y créditos en 10% y mantener tarjetas.</p>
+        <ul>
+          <li><span class="highlight">Incentivos:</span> Bono de $50,000 COP por 5 seguros o 3 créditos extras (ejecutivos nuevos).</li>
+          <li><span class="highlight">Capacitación:</span> Talleres con ÉXITO USME y ÉXITO CENTRO SANTA MARTA (9-13 de junio).</li>
+          <li><span class="highlight">Automatización:</span> CRM para reducir tareas administrativas (lanzamiento: 1 de junio).</li>
+        </ul>
+        <p><strong>Duración:</strong> Junio 2025</p>
+      </div>
+    </div>
+
+    <!-- Slide 8: Costos y Resultados Esperados -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Costos y Resultados Esperados</div>
+      </div>
+      <div class="data-box">
+        <p><strong>Costo total:</strong> $4,584,400 COP</p>
+        <p>- Capacitación: $60,000 COP</p>
+        <p>- Incentivos: $4,500,000 COP</p>
+        <p>- Automatización (CRM): $24,400 COP</p>
+      </div>
+      <ul>
+        <li>Seguros: +10.83% (75% cumplimiento, ~1,055 ventas adicionales).</li>
+        <li>Créditos: +9.86% (90% cumplimiento, ~372 ventas adicionales).</li>
+        <li>Ingresos estimados: $181,360 COP (ROI inicial: 5-10% a 3 meses).</li>
+      </ul>
+    </div>
+
+    <!-- Slide 9: Recomendaciones y Acciones Tecnológicas -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Recomendaciones y Acciones</div>
+      </div>
+      <ul>
+        <li>Ajustar metas: Reducir metas de nuevos en 20% (tarjetas: 20 a 16, créditos: 10 a 8).</li>
+        <li>Recuperar seguros: Reiniciar "Seguro Éxito" en BOGOTA CENTRO con talleres de COSTAS.</li>
+        <li>Estabilizar créditos: Ajustar metas al percentil 50 y promover ventas cruzadas en ANTIOQUIA.</li>
+        <li>Intervenir en tiendas críticas (ÉXITO PARQUE FABRICATO, ÉXITO MAYORCA): Capacitación intensiva.</li>
+        <li><span class="highlight">Acciones tecnológicas:</span>
+          <ul>
+            <li>Desarrollar un dashboard de ciencia de datos con Power BI para monitoreo en tiempo real.</li>
+            <li>Crear una app móvil con alertas predictivas usando machine learning para identificar riesgos de bajo desempeño.</li>
+            <li>Implementar un sistema de análisis de heatmaps basado en datos históricos para optimizar asignación de recursos.</li>
+          </ul>
+        </li>
+        <li>Monitoreo: Actualizar dashboard con tendencias mensuales.</li>
+      </ul>
+ 
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Presentación creada por el equipo de análisis de datos | Contacto: datos@exito.com</p>
+    </div>
+
+    <!-- Botones de Navegación -->
+    <div class="navigation">
+      <button class="nav-button" id="startBtn">Inicio</button>
+      <button class="nav-button" id="prevBtn" disabled>Anterior</button>
+      <button class="nav-button" id="nextBtn">Siguiente</button>
+      <button class="nav-button" id="endBtn">Fin</button>
+    </div>
+  </div>
+
+  <script>
+    // Navegación entre slides
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const startBtn = document.getElementById('startBtn');
+    const endBtn = document.getElementById('endBtn');
+    let currentSlide = 0;
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === slides.length - 1;
+      startBtn.disabled = currentSlide === 0;
+      endBtn.disabled = currentSlide === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    });
+
+    startBtn.addEventListener('click', () => {
+      currentSlide = 0;
+      updateSlide();
+    });
+
+    endBtn.addEventListener('click', () => {
+      currentSlide = slides.length - 1;
+      updateSlide();
+    });
+
+    // Gráfico 1: Cumplimiento por mes
+    const ctxCompliance = document.getElementById('complianceChart').getContext('2d');
+    new Chart(ctxCompliance, {
+      type: 'line',
+      data: {
+        labels: ['Enero', 'Febrero', 'Marzo'],
+        datasets: [
+          { label: 'Cum Tarjetas (%)', data: [118.44, 108.48, 120.40], borderColor: '#1a73e8', fill: false, tension: 0.3 },
+          { label: 'Cum Seguros (%)', data: [75.62, 85.40, 64.17], borderColor: '#CC2F38', fill: false, tension: 0.3 },
+          { label: 'Cum Créditos (%)', data: [221.40, 85.84, 80.14], borderColor: '#34c759', fill: false, tension: 0.3 }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Cumplimiento por Mes', font: { size: 16 } }, legend: { position: 'top' } },
+        scales: { y: { beginAtZero: true, title: { display: true, text: 'Cumplimiento (%)' } }, x: { title: { display: true, text: 'Mes' } } }
+      }
+    });
+
+    // Gráfico 2: Ventas por mes y producto
+    const ctxSales = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctxSales, {
+      type: 'bar',
+      data: {
+        labels: ['Enero', 'Febrero', 'Marzo'],
+        datasets: [
+          { label: 'Tarjetas', data: [29.23, 26.77, 29.71], backgroundColor: '#1a73e8' },
+          { label: 'Seguros', data: [17.91, 20.23, 15.20], backgroundColor: '#CC2F38' },
+          { label: 'Créditos', data: [23.38, 9.06, 8.46], backgroundColor: '#34c759' }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Ventas Promedio por Mes y Producto', font: { size: 16 } }, legend: { position: 'top' } },
+        scales: { y: { beginAtZero: true, title: { display: true, text: 'Ventas Promedio' } }, x: { title: { display: true, text: 'Mes' } } }
+      }
+    });
+
+    // Gráfico 3: Top Performers (Barras Horizontales, orden descendente)
+    const ctxTopPerformers = document.getElementById('topPerformersChart').getContext('2d');
+    new Chart(ctxTopPerformers, {
+      type: 'bar',
+      data: {
+        labels: ['ÉXITO CHIQUINQUIRA (Créditos)', 'ÉXITO USME (Tarjetas)', 'ÉXITO SOLEDAD (Tarjetas)', 'ÉXITO CENTRO SANTA MARTA (Seguros)'],
+        datasets: [{
+          label: 'Cumplimiento (%)',
+          data: [208.81, 191.60, 185.56, 149.20],
+          backgroundColor: '#34c759',
+          barPercentage: 0.5
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: { title: { display: true, text: 'Top Performers por Tienda y Producto', font: { size: 16 } }, legend: { display: false } },
+        scales: { x: { beginAtZero: true, title: { display: true, text: 'Cumplimiento (%)' } } }
+      }
+    });
+
+    // Gráfico 4: Bottom Performers (Barras Horizontales, orden descendente)
+    const ctxBottomPerformers = document.getElementById('bottomPerformersChart').getContext('2d');
+    new Chart(ctxBottomPerformers, {
+      type: 'bar',
+      data: {
+        labels: ['ÉXITO PARQUE FABRICATO (Seguros)', 'ÉXITO UNICENTRO MEDELLIN (Créditos)', 'ÉXITO CABECERA (Créditos)', 'ÉXITO MAYORCA (Seguros)'],
+        datasets: [{
+          label: 'Cumplimiento (%)',
+          data: [0.0, 0.0, 3.70, 13.24],
+          backgroundColor: '#CC2F38',
+          barPercentage: 0.5
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: { title: { display: true, text: 'Bottom Performers por Tienda y Producto', font: { size: 16 } }, legend: { display: false } },
+        scales: { x: { beginAtZero: true, title: { display: true, text: 'Cumplimiento (%)' } } }
+      }
+    });
+  </script>
+</body>
+</html>
