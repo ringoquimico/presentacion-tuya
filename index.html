@@ -159,15 +159,15 @@
     }
     .navigation {
       position: fixed;
-      bottom: 40px; /* Bajamos los botones más */
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 20px; /* Aumentamos la separación entre botones */
+      gap: 20px;
       z-index: 20;
     }
     .nav-button {
-      padding: 12px 24px; /* Aumentamos el padding para mejor interacción */
+      padding: 12px 24px;
       background-color: #1a73e8;
       color: white;
       border: none;
@@ -476,6 +476,23 @@
       </ul>
     </div>
 
+    <!-- Slide 10: Fuentes de Análisis -->
+    <div class="slide">
+      <div class="header">
+        <div class="logo"><img src="https://raw.githubusercontent.com/ringoquimico/ringoquimico/main/Tuya.png" alt="Tuya Logo"></div>
+        <div class="title">Fuentes de Análisis</div>
+      </div>
+      <div style="padding-top: 70px; min-height: 350px;">
+        <ul>
+          <li><a href="https://raw.githubusercontent.com/ringoquimico/presentacion-tuya/main/Tuya%20-%20An%C3%A1lisis%20ROI.xlsx" target="_blank">EXCEL</a></li>
+          <li><a href="https://raw.githubusercontent.com/ringoquimico/presentacion-tuya/main/Analisis%20Comercial.ipynb" target="_blank">IPYTHON NOTEBOOK</a></li>
+          <li><a href="https://raw.githubusercontent.com/ringoquimico/presentacion-tuya/main/TUYA%20-%20ANALISIS%20COMERCIAL.pbix" target="_blank">DASHBOARD POWER BI</a></li>
+          <li><a href="https://raw.githubusercontent.com/ringoquimico/presentacion-tuya/main/TUYA%20-%20ANALISIS%20COMERCIAL%20(PDF).pdf" target="_blank">DASHBOARD PDF</a></li>
+          <li><a href="https://raw.githubusercontent.com/ringoquimico/presentacion-tuya/main/Presentacion%20-%20An%C3%A1lisis.pptx" target="_blank">PRESENTACIÓN PPTX</a></li>
+        </ul>
+      </div>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
       <p>Presentación creada por el equipo de análisis de datos | Contacto: datos@exito.com</p>
@@ -601,7 +618,7 @@
         datasets: [{
           label: 'Cumplimiento (%)',
           data: [0.0, 0.0, 3.70, 13.24],
-          backgroundColor: '#CC2F38',
+          backgroundColor: '#CC2F38', // Fixed: Changed 'background-color' to 'backgroundColor'
           barPercentage: 0.5
         }]
       },
